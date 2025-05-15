@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="트랄라렐로트랄라라 MBTI", page_icon="🧠")
+st.set_page_config(page_title="10초 MBTI 테스트", page_icon="🧠")
 
 # 질문 리스트
 questions = [
@@ -45,7 +45,7 @@ def show_result():
     mbti += "T" if result["T"] >= result["F"] else "F"
     mbti += "J" if result["J"] >= result["P"] else "P"
     
-    st.success(f"당신의 트랄라렐로트랄라라 MBTI는: **{mbti}** 🎉")
+    st.success(f"당신의 MBTI는??: **{mbti}** 🎉")
     st.balloons()
 
 # 진행률 표시
