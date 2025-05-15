@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="도라에몽 캐릭터 심리 테스트", page_icon="🤖")
 
-# 캐릭터 결과 매핑
+# 캐릭터 정보 (설명 + 이미지)
 characters = {
     "도라에몽": {
         "desc": "현실적이고 친구들을 잘 챙기는 해결사형! 도구도 많고 아이디어도 풍부해요.",
@@ -30,41 +30,61 @@ characters = {
     }
 }
 
-# 질문 목록 (점수 기반 분기)
+# 질문 리스트
 questions = [
-    {"question": "시험 전날 나는...", "A": ("일단 잔다", "진구"), "B": ("계획을 세운다", "도라미")},
+    {"question": "시험 전날 나는...", "A": ("일단 잔다", "노진구"), "B": ("계획을 세운다", "도라미")},
     {"question": "친구가 울고 있어...", "A": ("같이 울어준다", "비실이"), "B": ("티슈를 챙겨준다", "도라에몽")},
-    {"question": "소풍날 비가 온다면?", "A": ("운명이려니 한다", "진구"), "B": ("대안 계획을 바로 꺼낸다", "도라에몽")},
+    {"question": "소풍날 비가 온다면?", "A": ("운명이려니 한다", "노진구"), "B": ("대안 계획을 바로 꺼낸다", "도라에몽")},
     {"question": "갈등이 생기면...", "A": ("먼저 사과한다", "이슬이"), "B": ("그냥 지나간다", "퉁퉁이")},
-    {"question": "간식이 떨어졌다면?", "A": ("포기한다", "비실이"), "B": ("만들어 먹는다", "도라미")},
+    {"question": "간식이 떨어졌다면?", "A": ("포기한다", "비실이"), "B": ("직접 만들어 먹는다", "도라미")},
     {"question": "친구가 늦었을 때...", "A": ("기다려준다", "이슬이"), "B": ("화난 티 낸다", "퉁퉁이")},
-    {"question": "새로운 걸 시작할 때...", "A": ("걱정부터 한다", "비실이"), "B": ("재밌겠는데?", "도라에몽")},
-    {"question": "시험 끝난 날 나는...", "A": ("친구들이랑 놀러간다", "진구"), "B": ("혼자 집에서 쉰다", "도라미")}
+    {"question": "새로운 걸 시작할 때...", "A": ("걱정부터 한다", "비실이"), "B": ("도전해본다", "도라에몽")},
 ]
 
-# 초기 세션 상태 설정
-if "index" not in st.session_state:
-    st.session_state.index = 0
-    st.session_state.scores = {k: 0 for k in characters}
+# 세션 상태 초기화
+if "page" not in st.session_state:
+    st.session_state.page = 0
+if "scores" not in st.session_state:
+    st.session_state.scores = {}
 
-# 질문 진행 중
-if st.session_state.index < len(questions):
-    q = questions[st.session_state.index]
-    st.markdown(f"### Q{st.session_state.index + 1}. {q['question']}")
+# 질문 보여주기
+if st.session_state.page < len(questions):
+    q = questions[st.session_state.page]
+
+    st.markdown(f"### Q{st.session_state.page + 1}. {q['question']}")
+
     col1, col2 = st.columns(2)
     with col1:
-        if st.button(f"👉 {q['A'][0]}", key="A"):
-            st.session_state.scores[q['A'][1]] += 1
-            st.session_state.index += 1
+        if st.button("🅰️ " + q["A"][0], key=f"A{st.session_state.page}"):
+            char = q["A"][1]
+            st.session_state.scores[char] = st.session_state.scores.get(char, 0) + 1
+            st.session_state.page += 1
+            st.experimental_rerun()
+
     with col2:
-        if st.button(f"👉 {q['B'][0]}", key="B"):
-            st.session_state.scores[q['B'][1]] += 1
-            st.session_state.index += 1
-    st.progress((st.session_state.index) / len(questions))
+        if st.button("🅱️ " + q["B"][0], key=f"B{st.session_state.page}"):
+            char = q["B"][1]
+            st.session_state.scores[char] = st.session_state.scores.get(char, 0) + 1
+            st.session_state.page += 1
+            st.experimental_rerun()
+
+    progress = (st.session_state.page) / len(questions)
+    st.progress(progress)
+
 else:
-    # 결과 계산
-    result = max(st.session_state.scores, key=st.session_state.scores.get)
-    st.markdown(f"## 당신은 **{result}** 스타일! 🎉")
-    st.image(characters[result]["img"], width=250)
-    st.markdown(f"📝 {characters[result]['desc']}")
-    st.button("🔁 다시 시작하기", on_click=lambda: st.session_state.clear())
+    # 결과 계산 (가장 점수 높은 캐릭터)
+    max_score = max(st.session_state.scores.values())
+    winners = [k for k, v in st.session_state.scores.items() if v == max_score]
+    # 동점일 경우 첫 번째 캐릭터를 결과로
+    result = winners[0]
+
+    st.markdown("## 🎉 당신과 가장 닮은 도라에몽 캐릭터는?")
+    st.markdown(f"### **{result}**")
+    st.image(characters[result]["img"], width=200)
+    st.write(characters[result]["desc"])
+    st.balloons()
+
+    if st.button("🔄 다시 하기"):
+        st.session_state.page = 0
+        st.session_state.scores = {}
+        st.experimental_rerun()
