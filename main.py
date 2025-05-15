@@ -1,59 +1,81 @@
 import streamlit as st
 
-st.set_page_config(page_title="10초 MBTI 테스트", page_icon="🧠")
+st.set_page_config(page_title="도라에몽 캐릭터 심리 테스트", page_icon="🤖")
 
-# 질문 리스트
+# 질문 정의
 questions = [
-    {"question": "파티에서 나는…", "A": ("사람들과 어울리는 게 좋아", "E"), "B": ("혼자 조용히 있는 게 좋아", "I")},
-    {"question": "계획 세우는 걸 좋아해?", "A": ("물론이지!", "J"), "B": ("즉흥이 더 재밌지~", "P")},
-    {"question": "친구가 고민을 털어놨어. 나는…", "A": ("논리적으로 해결책을 말해줌", "T"), "B": ("그냥 들어주고 공감함", "F")},
-    {"question": "여행 전 나는…", "A": ("계획표를 만든다", "J"), "B": ("가서 정하지 뭐~", "P")},
-    {"question": "팀플에서 나는…", "A": ("리더를 맡는다", "E"), "B": ("조용히 맡은 일만 한다", "I")},
-    {"question": "정보를 처리할 때 나는…", "A": ("사실 위주로 본다", "S"), "B": ("아이디어 위주로 본다", "N")},
-    {"question": "친구랑 갈등이 생기면?", "A": ("직접 말해서 해결", "T"), "B": ("분위기 보며 풀어본다", "F")},
-    {"question": "주말엔 뭐해?", "A": ("계획대로 보낸다", "J"), "B": ("즉흥적으로 논다", "P")},
-    {"question": "처음 보는 사람과 나는?", "A": ("말을 잘 건다", "E"), "B": ("조용히 있다", "I")},
-    {"question": "결정할 때 나는?", "A": ("논리적으로 판단", "T"), "B": ("감정적으로 판단", "F")},
+    {"question": "시험 전날 나는...", 
+     "A": ("일단 자고 본다", "진구"), 
+     "B": ("계획표 짜고 공부한다", "이슬이")},
+    
+    {"question": "친구가 울고 있어!", 
+     "A": ("같이 울어준다", "비실이"), 
+     "B": ("티슈 주고 달래준다", "도라에몽")},
+
+    {"question": "소풍날 비가 오면 나는...", 
+     "A": ("그냥 운명인가보다", "진구"), 
+     "B": ("대체 플랜을 실행한다!", "도라미")},
+
+    {"question": "친구랑 싸우면 나는...", 
+     "A": ("먼저 사과한다", "비실이"), 
+     "B": ("그냥 시간 지나길 기다린다", "퉁퉁이")},
+
+    {"question": "먹고 싶은 간식이 떨어졌다면?", 
+     "A": ("포기한다", "진구"), 
+     "B": ("직접 만들어 먹는다", "도라미")},
+
+    {"question": "단체활동에서 나는...", 
+     "A": ("리더를 맡는다", "퉁퉁이"), 
+     "B": ("묵묵히 따라간다", "이슬이")},
+
+    {"question": "시험 시간 5분 전, 나는?", 
+     "A": ("멘붕", "진구"), 
+     "B": ("마지막까지 훑는다", "도라미")}
 ]
 
-# 상태 초기화
+# 초기 상태 설정
 if "page" not in st.session_state:
     st.session_state.page = 0
-if "answers" not in st.session_state:
-    st.session_state.answers = []
+if "scores" not in st.session_state:
+    st.session_state.scores = {}
 
-# 질문 보여주기
-def show_question(i):
-    q = questions[i]
-    st.write(f"**Q{i+1}. {q['question']}**")
-    col1, col2 = st.columns(2)
-    if col1.button("A. " + q["A"][0], key=f"a{i}"):
-        st.session_state.answers.append(q["A"][1])
-        st.session_state.page += 1
-    if col2.button("B. " + q["B"][0], key=f"b{i}"):
-        st.session_state.answers.append(q["B"][1])
-        st.session_state.page += 1
-
-# 결과 계산
-def show_result():
-    result = {"E": 0, "I": 0, "S": 0, "N": 0, "T": 0, "F": 0, "J": 0, "P": 0}
-    for ans in st.session_state.answers:
-        result[ans] += 1
-    mbti = ""
-    mbti += "E" if result["E"] >= result["I"] else "I"
-    mbti += "S" if result["S"] >= result["N"] else "N"
-    mbti += "T" if result["T"] >= result["F"] else "F"
-    mbti += "J" if result["J"] >= result["P"] else "P"
-    
-    st.success(f"당신의 MBTI는??: **{mbti}** 🎉")
-    st.balloons()
-
-# 진행률 표시
-progress = st.session_state.page / len(questions)
-st.progress(progress)
-
-# 질문 또는 결과 출력
+# 현재 질문
 if st.session_state.page < len(questions):
-    show_question(st.session_state.page)
+    q = questions[st.session_state.page]
+    
+    st.markdown(f"### Q{st.session_state.page + 1}. {q['question']}")
+    
+    # 선택 버튼
+    if st.button("🅰️ " + q["A"][0]):
+        char = q["A"][1]
+        st.session_state.scores[char] = st.session_state.scores.get(char, 0) + 1
+        st.session_state.page += 1
+
+    if st.button("🅱️ " + q["B"][0]):
+        char = q["B"][1]
+        st.session_state.scores[char] = st.session_state.scores.get(char, 0) + 1
+        st.session_state.page += 1
+
+    # 진도 표시
+    progress = (st.session_state.page / len(questions))
+    st.progress(progress)
+
 else:
-    show_result()
+    # 결과 계산
+    result = max(st.session_state.scores, key=st.session_state.scores.get)
+
+    st.markdown("## 🎉 당신과 가장 닮은 도라에몽 캐릭터는?")
+    
+    character_profiles = {
+        "도라에몽": "🤖 현실적이고 도움을 잘 주는 만능 해결사!",
+        "진구": "😅 덜렁대지만 순수하고 정 많은 친구~",
+        "이슬이": "🎓 똑똑하고 책임감 있는 엘리트!",
+        "퉁퉁이": "💪 강한 리더십과 자신감의 소유자!",
+        "비실이": "🎤 감수성 풍부한 예술가 스타일!",
+        "도라미": "🧼 꼼꼼하고 계획적인 완벽주의자!"
+    }
+
+    st.subheader(result)
+    st.write(character_profiles[result])
+
+    st.button("🔄 다시 하기", on_click=lambda: st.session_state.clear())
