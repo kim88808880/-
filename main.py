@@ -1,47 +1,82 @@
+pip install streamlit
+
 import streamlit as st
 
-st.title("🎉 트랄라렐로트랄라라 MBTI 테스트 🎉")
-st.write("10개의 질문에 답하고, 나의 트랄라라 성격을 알아보자!")
+st.set_page_config(page_title="트랄라렐로트랄라라 MBTI", page_icon="🧠")
 
+# 질문 리스트
 questions = [
-    ("파티에서 나는…", "사람들과 어울리는 게 좋아", "조용히 구석에서 쉬는 게 좋아", "EI"),
-    ("계획 세우는 걸 좋아해?", "물론이지!", "즉흥이 더 재밌지~", "JP"),
-    ("친구가 고민을 털어놨어. 나는…", "논리적으로 해결책 제시", "공감하고 위로", "TF"),
-    ("여행 가기 전 나는…", "계획 철저", "가서 정함", "JP"),
-    ("새로운 아이디어는…", "좋아! 창의적이야", "현실적인 게 좋아", "SN"),
-    ("사람 많은 곳은…", "에너지 넘쳐", "좀 피곤해", "EI"),
-    ("영화 볼 때 나는…", "상징을 찾아냄", "스토리에 집중", "SN"),
-    ("중요한 결정은…", "논리를 따름", "느낌을 따름", "TF"),
-    ("친구들과 놀 때 나는…", "내가 리드함", "따라감", "EI"),
-    ("생일 선물 고를 때…", "실용적인 거", "감성적인 거", "TF"),
+    {
+        "question": "1. 파티에서 나는…",
+        "A": ("사람들과 어울리는 게 좋아", "E"),
+        "B": ("조용히 구석에서 쉬는 게 좋아", "I")
+    },
+    {
+        "question": "2. 계획 세우는 걸 좋아해?",
+        "A": ("물론이지!", "J"),
+        "B": ("즉흥이 더 재밌지~", "P")
+    },
+    {
+        "question": "3. 친구가 고민을 털어놨어. 나는…",
+        "A": ("논리적으로 해결책을 제시한다", "T"),
+        "B": ("공감하고 위로해준다", "F")
+    },
+    {
+        "question": "4. 여행 가기 전에 나는…",
+        "A": ("철저히 계획 세운다", "J"),
+        "B": ("그냥 가서 정한다", "P")
+    },
+    {
+        "question": "5. 나는 새로운 아이디어가…",
+        "A": ("신선하고 창의적이면 좋아", "N"),
+        "B": ("현실적이고 실용적이면 좋아", "S")
+    },
+    # ... 나머지 질문도 이렇게 추가 (총 10개)
 ]
 
-answers = []
+# 상태 초기화
+if "page" not in st.session_state:
+    st.session_state.page = 0
+    st.session_state.answers = []
 
-for i, (q, a1, a2, typ) in enumerate(questions):
-    choice = st.radio(f"{i+1}. {q}", (a1, a2), key=i)
-    answers.append((choice, typ, a1))
+# 질문 수
+total_questions = len(questions)
 
-if st.button("결과 보기"):
-    result = {"E": 0, "I": 0, "S": 0, "N": 0, "T": 0, "F": 0, "J": 0, "P": 0}
+def show_question():
+    q = questions[st.session_state.page]
+    st.write(f"### {q['question']}")
+    if st.button(f"🅰️ {q['A'][0]}"):
+        st.session_state.answers.append(q['A'][1])
+        st.session_state.page += 1
+    if st.button(f"🅱️ {q['B'][0]}"):
+        st.session_state.answers.append(q['B'][1])
+        st.session_state.page += 1
 
-    for answer, typ, a1 in answers:
-        if typ == "EI":
-            result["E" if answer == a1 else "I"] += 1
-        elif typ == "SN":
-            result["S" if answer == a1 else "N"] += 1
-        elif typ == "TF":
-            result["T" if answer == a1 else "F"] += 1
-        elif typ == "JP":
-            result["J" if answer == a1 else "P"] += 1
+# 결과 계산
+def calculate_result():
+    from collections import Counter
+    count = Counter(st.session_state.answers)
+    result = ""
+    result += "E" if count["E"] >= count["I"] else "I"
+    result += "S" if count["S"] >= count["N"] else "N"
+    result += "T" if count["T"] >= count["F"] else "F"
+    result += "J" if count["J"] >= count["P"] else "P"
+    return result
 
-    mbti = "".join([
-        "E" if result["E"] >= result["I"] else "I",
-        "S" if result["S"] >= result["N"] else "N",
-        "T" if result["T"] >= result["F"] else "F",
-        "J" if result["J"] >= result["P"] else "P"
-    ])
+# 진행률 표시
+progress = (st.session_state.page / total_questions)
+st.progress(progress)
 
-    st.subheader(f"🎊 당신의 트랄라라 MBTI는: {mbti} 🎊")
-    st.write(f"설명: (여기에 {mbti} 유형의 재미있는 캐릭터 설명 넣기)")
+st.title("🎉 트랄라렐로트랄라라 MBTI 테스트")
 
+if st.session_state.page < total_questions:
+    show_question()
+else:
+    st.success("🎉 테스트 완료!")
+    mbti = calculate_result()
+    st.header(f"당신의 트랄라 MBTI는? 🧠 **{mbti}** 타입!")
+    # 유형 설명도 추가 가능
+    st.write("👉 이 유형은 모험을 즐기고 상상력이 풍부한 사람입니다. (예시 설명)")
+    if st.button("🔁 다시하기"):
+        st.session_state.page = 0
+        st.session_state.answers = []
