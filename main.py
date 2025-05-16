@@ -100,18 +100,18 @@ if st.session_state.page < len(questions):
             st.session_state.scores[q["B"][1]] += 1
             st.session_state.page += 1
 
-
 # 결과 출력
-if st.session_state.page >= len(questions):
-    # 점수 계산
+else:
     result = max(st.session_state.scores, key=st.session_state.scores.get)
-    data = characters[result]
+    st.header(f"당신은 **{result}** 스타일이에요!")
+    st.image(characters[result]["img"], width=200)
+    st.markdown(f"👉 {characters[result]['desc']}")
+    
+    # 표로 특성 출력
+    traits_df = pd.DataFrame(characters[result]["traits"].items(), columns=["항목", "내용"])
+    st.table(traits_df)
 
-    st.image(data["img"], width=200)
-    st.markdown(f"## 🧠 당신은 **{result}** 타입입니다!")
-    st.write(data["desc"])
-
-    # 특성 표 출력
-    df = pd.DataFrame(data["traits"].items(), columns=["구분", "내용"])
-    st.table(df)
-
+    # 다시하기
+    if st.button("🔄 다시 하기"):
+        st.session_state.page = 0
+        st.session_state.scores = {char: 0 for char in characters.keys()}
