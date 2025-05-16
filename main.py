@@ -7,7 +7,11 @@ st.set_page_config(page_title="도라에몽 캐릭터 심리 테스트", page_ic
 characters = {
     "도라에몽": {
         "desc": "문제를 해결해주는 든든한 해결사! 차분하고 배려심이 깊어요.",
-        "img": "https://www.google.co.kr/url?sa=i&url=https%3A%2F%2Fko.wikipedia.org%2Fwiki%2F%25EB%258F%2584%25EB%259D%25BC%25EC%2597%2590%25EB%25AA%25BD_%2528%25EB%2593%25B1%25EC%259E%25A5%25EC%259D%25B8%25EB%25AC%25BC%2529&psig=AOvVaw3gHx84ELnGHQmf0RqgnL5-&ust=1747466752712000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOjd-Im7p40DFQAAAAAdAAAAABAE",
+       st.image(
+    "https://th.bing.com/th/id/R.94cdc1cddbebbdf5dccd68f523f83972?rik=R6J1sNM7nyFLwg&riu=http%3a%2f%2fwww.hancinema.net%2fphotos%2ffullsizephoto249921.jpg&ehk=iW5siMlhFfdKQVJajfaodxn2MU%2bMV7084O4yQ%2fnNCnM%3d&risl=&pid=ImgRaw&r=0",
+    caption="📷 이미지 예시",
+    use_column_width=True
+)
         "traits": {
             "성격 특징": "이성적이고 실용주의자. 도구 활용 능력 뛰어남.",
             "장점 💡": "책임감, 침착함, 문제 해결 능력",
