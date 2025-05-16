@@ -27,7 +27,7 @@ characters = {
     },
     "진구": {
         "desc": "조금 덤벙대지만 따뜻한 감성파!",
-        "img": "https://i.imgur.com/vgUcoTr.png",
+        "img": "https://www.google.co.kr/url?sa=i&url=https%3A%2F%2Fko.wikipedia.org%2Fwiki%2F%25EB%258F%2584%25EB%259D%25BC%25EC%2597%2590%25EB%25AA%25BD_%2528%25EB%2593%25B1%25EC%259E%25A5%25EC%259D%25B8%25EB%25AC%25BC%2529&psig=AOvVaw3gHx84ELnGHQmf0RqgnL5-&ust=1747466752712000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOjd-Im7p40DFQAAAAAdAAAAABAE",
         "traits": {
             "성격 특징": "게으르지만 정 많고 감성 풍부",
             "장점 💡": "상상력, 순수함, 유연함",
