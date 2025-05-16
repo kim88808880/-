@@ -7,11 +7,7 @@ st.set_page_config(page_title="도라에몽 캐릭터 심리 테스트", page_ic
 characters = {
     "도라에몽": {
         "desc": "문제를 해결해주는 든든한 해결사! 차분하고 배려심이 깊어요.",
-       st.image(
-    "https://th.bing.com/th/id/R.94cdc1cddbebbdf5dccd68f523f83972?rik=R6J1sNM7nyFLwg&riu=http%3a%2f%2fwww.hancinema.net%2fphotos%2ffullsizephoto249921.jpg&ehk=iW5siMlhFfdKQVJajfaodxn2MU%2bMV7084O4yQ%2fnNCnM%3d&risl=&pid=ImgRaw&r=0",
-    caption="📷 이미지 예시",
-    use_column_width=True
-)
+        "img": "https://i.imgur.com/H5IwBqX.png",
         "traits": {
             "성격 특징": "이성적이고 실용주의자. 도구 활용 능력 뛰어남.",
             "장점 💡": "책임감, 침착함, 문제 해결 능력",
@@ -31,11 +27,7 @@ characters = {
     },
     "진구": {
         "desc": "조금 덤벙대지만 따뜻한 감성파!",
-        st.image(
-    "https://th.bing.com/th/id/R.94cdc1cddbebbdf5dccd68f523f83972?rik=R6J1sNM7nyFLwg&riu=http%3a%2f%2fwww.hancinema.net%2fphotos%2ffullsizephoto249921.jpg&ehk=iW5siMlhFfdKQVJajfaodxn2MU%2bMV7084O4yQ%2fnNCnM%3d&risl=&pid=ImgRaw&r=0",
-    caption="📷 이미지 예시",
-    use_column_width=True
-)
+        "img": "https://i.imgur.com/vgUcoTr.png",
         "traits": {
             "성격 특징": "게으르지만 정 많고 감성 풍부",
             "장점 💡": "상상력, 순수함, 유연함",
@@ -111,7 +103,7 @@ if st.session_state.page < len(questions):
 # 결과 출력
 else:
     result = max(st.session_state.scores, key=st.session_state.scores.get)
-    st.header(f"당신은 **{result}** 스타일이에요!")
+    st.subheader(f"당신은 **{result}** 스타일이에요!")
     st.image(characters[result]["img"], width=200)
     st.markdown(f"👉 {characters[result]['desc']}")
     
