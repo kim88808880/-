@@ -26,92 +26,97 @@ characters = {
         }
     },
     "진구": {
-        "desc": "조금 덤벙대지만 따뜻한 감성파!",
+        "desc": "순수하고 정 많은 감성파!",
         "img": "https://i.imgur.com/vgUcoTr.png",
         "traits": {
-            "성격 특징": "게으르지만 정 많고 감성 풍부",
-            "장점 💡": "상상력, 순수함, 유연함",
-            "단점 ⚠️": "귀찮음, 실행력 부족, 우유부단",
+            "성격 특징": "게으르지만 상상력 풍부, 감정적임",
+            "장점 💡": "공감 능력, 창의성",
+            "단점 ⚠️": "실행력 부족, 우유부단",
             "잘 어울리는 친구 👯": "도라에몽, 비실이"
         }
     },
     "이슬이": {
-        "desc": "예의 바르고 지적인 완벽소녀!",
+        "desc": "침착하고 공감 잘하는 지성파!",
         "img": "https://i.imgur.com/L8ZH5hf.png",
         "traits": {
-            "성격 특징": "차분하고 공감능력 높음, 모범적",
-            "장점 💡": "성실함, 정직함, 배려심",
-            "단점 ⚠️": "자기감정 억제, 지나치게 착함",
-            "잘 어울리는 친구 👯": "도라에몽, 도라미"
+            "성격 특징": "지적이고 예의 바르며 감정 조절에 능함",
+            "장점 💡": "이해심, 배려심, 학업성실",
+            "단점 ⚠️": "감정 숨기기, 지나치게 착함",
+            "잘 어울리는 친구 👯": "도라미, 도라에몽"
         }
     },
     "퉁퉁이": {
-        "desc": "자기주장 강하고 열정적인 리더형!",
+        "desc": "강한 리더십과 열정을 가진 추진형!",
         "img": "https://i.imgur.com/zxXMeRM.png",
         "traits": {
-            "성격 특징": "리더십 있고 솔직함. 다혈질 성향 있음",
-            "장점 💡": "결단력, 추진력, 책임감",
-            "단점 ⚠️": "고집 셈, 감정 조절 미숙",
+            "성격 특징": "직설적이며 자기주장 강함",
+            "장점 💡": "리더십, 추진력",
+            "단점 ⚠️": "고집 셈, 감정 조절 부족",
             "잘 어울리는 친구 👯": "비실이, 진구"
         }
     },
     "비실이": {
-        "desc": "감수성 풍부한 감정형 친구!",
-        "img": "https://i.imgur.com/dp6O2qK.png",
+        "desc": "섬세하고 감수성 풍부한 감성캐!",
+        "img": "https://i.imgur.com/QyaH0Sn.png",
         "traits": {
-            "성격 특징": "눈물 많고 감정 표현이 풍부",
-            "장점 💡": "예술적 감각, 공감력, 감성적",
-            "단점 ⚠️": "불안정, 자기비하, 질투심",
-            "잘 어울리는 친구 👯": "퉁퉁이, 진구"
+            "성격 특징": "소심하지만 감정이 풍부하고 예술적",
+            "장점 💡": "감수성, 공감력",
+            "단점 ⚠️": "소심함, 자존감 낮음",
+            "잘 어울리는 친구 👯": "진구, 이슬이"
         }
-    },
+    }
 }
 
-# 질문 리스트
+# 질문 목록
 questions = [
     {"question": "시험 전날 나는...", "A": ("일단 자고 본다", "진구"), "B": ("계획표 짜고 공부한다", "이슬이")},
     {"question": "친구가 울고 있어!", "A": ("같이 울어준다", "비실이"), "B": ("티슈 주고 달래준다", "도라에몽")},
-    {"question": "소풍날 비가 오면 나는...", "A": ("그냥 운명인가보다", "진구"), "B": ("대체 플랜을 실행한다!", "도라미")},
-    {"question": "친구랑 싸우면 나는...", "A": ("먼저 사과한다", "비실이"), "B": ("그냥 시간 지나길 기다린다", "퉁퉁이")},
-    {"question": "먹고 싶은 간식이 떨어졌다면?", "A": ("포기한다", "진구"), "B": ("직접 만들어 먹는다", "도라미")},
-    {"question": "단체활동에서 나는...", "A": ("리더를 맡는다", "퉁퉁이"), "B": ("묵묵히 따라간다", "이슬이")},
-    {"question": "시험 시간 5분 전, 나는?", "A": ("멘붕", "진구"), "B": ("마지막까지 훑는다", "도라미")},
+    {"question": "소풍날 비가 오면 나는...", "A": ("운명인가보다", "진구"), "B": ("대체 플랜 실행!", "도라미")},
+    {"question": "친구랑 싸우면 나는...", "A": ("먼저 사과함", "비실이"), "B": ("시간이 해결해주겠지", "퉁퉁이")},
+    {"question": "간식이 떨어졌다면?", "A": ("포기한다", "진구"), "B": ("직접 만들어 먹는다", "도라미")},
+    {"question": "단체활동에서 나는...", "A": ("리더를 맡는다", "퉁퉁이"), "B": ("조용히 따라간다", "이슬이")},
+    {"question": "시험 시간 5분 전, 나는?", "A": ("멘붕!", "진구"), "B": ("마지막까지 훑는다", "도라미")}
 ]
 
-# 상태 초기화
+# 초기 상태 설정
 if "page" not in st.session_state:
     st.session_state.page = 0
 if "scores" not in st.session_state:
-    st.session_state.scores = {char: 0 for char in characters.keys()}
+    st.session_state.scores = {name: 0 for name in characters.keys()}
 
-# 테스트 중
+st.title("🤖 도라에몽 캐릭터 심리 테스트")
+st.write("당신과 닮은 도라에몽 캐릭터는 누구일까요?")
+
+# 질문 표시
 if st.session_state.page < len(questions):
     q = questions[st.session_state.page]
-    st.markdown(f"### Q{st.session_state.page+1}. {q['question']}")
     st.progress((st.session_state.page + 1) / len(questions))
-
+    st.subheader(f"Q{st.session_state.page + 1}. {q['question']}")
     col1, col2 = st.columns(2)
-    with col1:
-        if st.button("🅐 " + q["A"][0]):
-            st.session_state.scores[q["A"][1]] += 1
-            st.session_state.page += 1
-    with col2:
-        if st.button("🅑 " + q["B"][0]):
-            st.session_state.scores[q["B"][1]] += 1
-            st.session_state.page += 1
+    if col1.button(q['A'][0]):
+        st.session_state.scores[q['A'][1]] += 1
+        st.session_state.page += 1
+    if col2.button(q['B'][0]):
+        st.session_state.scores[q['B'][1]] += 1
+        st.session_state.page += 1
 
-# 결과 출력
+# 결과 표시
 else:
-    result = max(st.session_state.scores, key=st.session_state.scores.get)
-    st.subheader(f"당신은 **{result}** 스타일이에요!")
-    st.image(characters[result]["img"], width=200)
-    st.markdown(f"👉 {characters[result]['desc']}")
-    
-    # 표로 특성 출력
-    traits_df = pd.DataFrame(characters[result]["traits"].items(), columns=["항목", "내용"])
-    st.table(traits_df)
+    st.subheader("🎉 결과 분석")
 
-    # 다시하기
-    if st.button("🔄 다시 하기"):
+    # 최고 점수 캐릭터 찾기
+    result = max(st.session_state.scores, key=st.session_state.scores.get)
+    char_data = characters[result]
+
+    st.image(char_data["img"], width=250)
+    st.markdown(f"### 당신은 **{result}** 타입!")
+    st.write(char_data["desc"])
+
+    # 표로 특징 출력
+    df = pd.DataFrame(char_data["traits"].items(), columns=["항목", "내용"])
+    st.table(df)
+
+    st.markdown("---")
+    if st.button("🔁 다시하기"):
         st.session_state.page = 0
-        st.session_state.scores = {char: 0 for char in characters.keys()}
+        st.session_state.scores = {name: 0 for name in characters.keys()}
